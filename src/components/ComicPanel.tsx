@@ -12,19 +12,15 @@ interface ComicPanelProps {
   panel: Panel;
   index: number;
   style: 'minimalist' | 'manga' | 'western';
+  inputType?: string;
+  isConversational?: boolean;
 }
 
-const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style }) => {
+const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style, inputType = 'text', isConversational = true }) => {
   const styleClasses = {
     minimalist: 'border-2 border-gray-800 bg-white',
     manga: 'border-4 border-black bg-gradient-to-b from-white to-gray-50',
     western: 'border-4 border-red-600 bg-gradient-to-b from-yellow-50 to-orange-50'
-  };
-
-  const bubbleStyles = {
-    minimalist: 'bg-white border-2 border-gray-400 text-gray-800',
-    manga: 'bg-white border-2 border-black text-black rounded-2xl',
-    western: 'bg-yellow-100 border-3 border-red-600 text-black'
   };
 
   // Create cartoon-style placeholder based on scene description
@@ -43,16 +39,22 @@ const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style }) => {
       handshake: '🤝',
       discussion: '💬',
       graph: '📈',
-      team: '👥'
+      team: '👥',
+      ai: '🤖',
+      user: '👤',
+      analysis: '🔍',
+      insight: '💡'
     };
 
-    // Determine icon based on scene content
+    // Determine icon based on scene content and panel index
     let sceneIcon = '💼'; // default
     if (scene.includes('chart') || scene.includes('graph')) sceneIcon = icons.chart;
     if (scene.includes('celebrat')) sceneIcon = icons.celebration;
     if (scene.includes('handshake')) sceneIcon = icons.handshake;
     if (scene.includes('discussion') || scene.includes('meeting')) sceneIcon = icons.discussion;
     if (scene.includes('team') || scene.includes('group')) sceneIcon = icons.team;
+    if (scene.includes('AI') || scene.includes('analysis')) sceneIcon = icons.ai;
+    if (scene.includes('insight') || scene.includes('key point')) sceneIcon = icons.insight;
 
     return (
       <div className={`w-full h-full bg-gradient-to-br ${colors[panelStyle]} flex items-center justify-center relative overflow-hidden`}>
@@ -93,6 +95,36 @@ const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style }) => {
     );
   };
 
+  // Generate conversational dialogue based on panel content
+  const generateConversationalDialogue = (panelContent: string, panelIndex: number) => {
+    const conversations = [
+      {
+        user: "Can you analyze this content for me?",
+        ai: panelContent
+      },
+      {
+        user: "What's the main point here?",
+        ai: panelContent
+      },
+      {
+        user: "Help me understand this better.",
+        ai: panelContent
+      },
+      {
+        user: "What should I know about this?",
+        ai: panelContent
+      },
+      {
+        user: "Can you summarize this key insight?",
+        ai: panelContent
+      }
+    ];
+
+    return conversations[panelIndex % conversations.length];
+  };
+
+  const conversation = isConversational ? generateConversationalDialogue(panel.dialogue, index) : null;
+
   return (
     <div 
       className={`relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-bounce-in ${styleClasses[style]}`}
@@ -114,32 +146,87 @@ const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style }) => {
         {createCartoonPlaceholder(panel.scene, style)}
       </div>
 
-      {/* Speech Bubble */}
-      <div className="p-4">
-        <div className={`relative p-3 rounded-lg max-w-full ${bubbleStyles[style]} shadow-md`}>
-          {/* Speech bubble tail */}
-          <div className={`absolute -top-2 left-4 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent ${
-            style === 'minimalist' ? 'border-b-gray-400' :
-            style === 'manga' ? 'border-b-black' :
-            'border-b-red-600'
-          }`}></div>
-          
-          {/* Character name */}
-          {style !== 'minimalist' && (
-            <div className={`text-xs font-bold mb-1 ${
-              style === 'manga' ? 'text-purple-600' : 'text-red-700'
-            }`}>
-              {panel.character}:
+      {/* Conversational Dialogue Bubbles */}
+      <div className="p-4 space-y-3">
+        {isConversational && conversation ? (
+          <>
+            {/* User Input Bubble */}
+            <div className="flex justify-end">
+              <div className={`relative p-3 rounded-2xl max-w-[80%] ${
+                style === 'minimalist' ? 'bg-blue-100 border-2 border-blue-300' :
+                style === 'manga' ? 'bg-pink-100 border-2 border-pink-300' :
+                'bg-yellow-100 border-2 border-yellow-400'
+              } shadow-md`}>
+                {/* User bubble tail */}
+                <div className={`absolute -bottom-2 right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent ${
+                  style === 'minimalist' ? 'border-t-blue-300' :
+                  style === 'manga' ? 'border-t-pink-300' :
+                  'border-t-yellow-400'
+                }`}></div>
+                
+                <div className="flex items-center space-x-2 mb-1">
+                  <span className="text-lg">👤</span>
+                  <span className="text-xs font-bold text-gray-600">You</span>
+                </div>
+                <p className="text-sm text-gray-700">{conversation.user}</p>
+              </div>
             </div>
-          )}
-          
-          {/* Dialogue */}
-          <p className={`text-sm leading-relaxed ${
-            style === 'western' ? 'font-comic' : 'font-medium'
-          }`}>
-            {panel.dialogue}
-          </p>
-        </div>
+
+            {/* AI Response Bubble */}
+            <div className="flex justify-start">
+              <div className={`relative p-3 rounded-2xl max-w-[85%] ${
+                style === 'minimalist' ? 'bg-gray-100 border-2 border-gray-300' :
+                style === 'manga' ? 'bg-purple-100 border-2 border-purple-300' :
+                'bg-orange-100 border-2 border-orange-400'
+              } shadow-md`}>
+                {/* AI bubble tail */}
+                <div className={`absolute -bottom-2 left-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent ${
+                  style === 'minimalist' ? 'border-t-gray-300' :
+                  style === 'manga' ? 'border-t-purple-300' :
+                  'border-t-orange-400'
+                }`}></div>
+                
+                <div className="flex items-center space-x-2 mb-2">
+                  <span className="text-lg">🤖</span>
+                  <span className="text-xs font-bold text-gray-600">ComicBrief AI</span>
+                  <div className="flex space-x-1">
+                    <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-800 leading-relaxed">{conversation.ai}</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          /* Traditional Single Bubble */
+          <div className={`relative p-3 rounded-lg max-w-full ${
+            style === 'minimalist' ? 'bg-white border-2 border-gray-400 text-gray-800' :
+            style === 'manga' ? 'bg-white border-2 border-black text-black rounded-2xl' :
+            'bg-yellow-100 border-3 border-red-600 text-black'
+          } shadow-md`}>
+            <div className={`absolute -top-2 left-4 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent ${
+              style === 'minimalist' ? 'border-b-gray-400' :
+              style === 'manga' ? 'border-b-black' :
+              'border-b-red-600'
+            }`}></div>
+            
+            {style !== 'minimalist' && (
+              <div className={`text-xs font-bold mb-1 ${
+                style === 'manga' ? 'text-purple-600' : 'text-red-700'
+              }`}>
+                {panel.character}:
+              </div>
+            )}
+            
+            <p className={`text-sm leading-relaxed ${
+              style === 'western' ? 'font-comic' : 'font-medium'
+            }`}>
+              {panel.dialogue}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Style-specific decorative elements */}

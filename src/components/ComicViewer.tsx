@@ -19,41 +19,41 @@ const ComicViewer: React.FC = () => {
     id: id
   };
 
-  // Mock comic panels data with cartoon-style illustrations
+  // Enhanced mock comic panels with GPT-style conversational content
   const mockPanels = [
     {
       id: 1,
-      scene: "A businessman looking at charts and graphs on a computer screen",
-      character: "Business Analyst",
-      dialogue: "Our Q3 results show a 15% increase in revenue compared to last quarter.",
+      scene: "AI analysis of business data with charts and graphs",
+      character: "ComicBrief AI",
+      dialogue: "Based on your Q3 report, I can see that revenue increased by 15% compared to last quarter. This growth is primarily driven by strong performance in your core product lines and improved customer retention rates.",
       imageUrl: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       id: 2,
-      scene: "Team members celebrating around a conference table",
-      character: "Team Lead",
-      dialogue: "This growth is driven by our new product launch and improved customer retention!",
+      scene: "Team celebration and success metrics visualization",
+      character: "ComicBrief AI",
+      dialogue: "The key success factor here is your new product launch strategy. It's contributing significantly to customer acquisition, with a 23% increase in new user signups and improved market penetration in target demographics.",
       imageUrl: "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       id: 3,
-      scene: "Person pointing to a declining graph with concern",
-      character: "Financial Advisor",
-      dialogue: "However, we need to address the 8% increase in operational costs this quarter.",
+      scene: "Financial analysis showing cost concerns and budget review",
+      character: "ComicBrief AI",
+      dialogue: "However, there's an important challenge to address: operational costs have risen by 8% this quarter. This is mainly due to increased marketing spend and supply chain adjustments, which need strategic optimization.",
       imageUrl: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       id: 4,
-      scene: "Group discussion with people taking notes",
-      character: "Project Manager",
-      dialogue: "Our action plan includes optimizing supply chain and renegotiating vendor contracts.",
+      scene: "Strategic planning session with action items and solutions",
+      character: "ComicBrief AI",
+      dialogue: "The recommended action plan includes three key initiatives: optimizing your supply chain partnerships, renegotiating vendor contracts for better terms, and implementing cost-effective digital marketing strategies to maintain growth momentum.",
       imageUrl: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       id: 5,
-      scene: "Handshake between two people with positive expressions",
-      character: "CEO",
-      dialogue: "With these improvements, we're projecting 20% growth for Q4. Great work, team!",
+      scene: "Future outlook with positive projections and team alignment",
+      character: "ComicBrief AI",
+      dialogue: "With these strategic improvements in place, the projections look very promising. I estimate a potential 20% growth trajectory for Q4, positioning your company for strong year-end performance and sustainable expansion.",
       imageUrl: "https://images.pexels.com/photos/3184317/pexels-photo-3184317.jpeg?auto=compress&cs=tinysrgb&w=400"
     }
   ];
@@ -114,8 +114,8 @@ const ComicViewer: React.FC = () => {
 
       {/* Comic Title and Info */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Your Comic Strip</h1>
-        <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Your AI Comic Brief</h1>
+        <div className="flex items-center justify-center space-x-4 text-sm text-gray-600 mb-4">
           <span className="px-3 py-1 bg-gray-100 rounded-full">
             {comicData.style} style
           </span>
@@ -125,6 +125,16 @@ const ComicViewer: React.FC = () => {
           <span className="px-3 py-1 bg-gray-100 rounded-full">
             Generated {new Date(comicData.generatedAt).toLocaleDateString()}
           </span>
+        </div>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl mx-auto">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-2xl">🤖</span>
+            <span className="font-semibold text-blue-800">AI-Generated Conversation</span>
+          </div>
+          <p className="text-sm text-blue-700">
+            Your content has been transformed into an interactive dialogue between you and ComicBrief AI, 
+            making complex information easy to understand through conversational comic panels.
+          </p>
         </div>
       </div>
 
@@ -136,6 +146,8 @@ const ComicViewer: React.FC = () => {
             panel={panel}
             index={index}
             style={comicData.style}
+            inputType={comicData.type}
+            isConversational={true}
           />
         ))}
       </div>
@@ -144,7 +156,7 @@ const ComicViewer: React.FC = () => {
       <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <Share2 className="h-5 w-5 mr-2" />
-          Share Your Comic
+          Share Your AI Comic Brief
         </h3>
         <div className="flex flex-wrap items-center gap-3">
           <button
