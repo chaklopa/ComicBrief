@@ -6,6 +6,8 @@ interface Panel {
   character: string;
   dialogue: string;
   imageUrl: string;
+  userQuestion?: string;
+  aiResponse?: string;
 }
 
 interface ComicPanelProps {
@@ -96,34 +98,42 @@ const ComicPanel: React.FC<ComicPanelProps> = ({ panel, index, style, inputType 
   };
 
   // Generate conversational dialogue based on panel content
-  const generateConversationalDialogue = (panelContent: string, panelIndex: number) => {
+  const generateConversationalDialogue = (panelContent: Panel, panelIndex: number) => {
+    // Use provided userQuestion and aiResponse if available, otherwise generate defaults
+    if (panelContent.userQuestion && panelContent.aiResponse) {
+      return {
+        user: panelContent.userQuestion,
+        ai: panelContent.aiResponse
+      };
+    }
+
     const conversations = [
       {
         user: "Can you analyze this content for me?",
-        ai: panelContent
+        ai: panelContent.dialogue
       },
       {
         user: "What's the main point here?",
-        ai: panelContent
+        ai: panelContent.dialogue
       },
       {
         user: "Help me understand this better.",
-        ai: panelContent
+        ai: panelContent.dialogue
       },
       {
         user: "What should I know about this?",
-        ai: panelContent
+        ai: panelContent.dialogue
       },
       {
         user: "Can you summarize this key insight?",
-        ai: panelContent
+        ai: panelContent.dialogue
       }
     ];
 
     return conversations[panelIndex % conversations.length];
   };
 
-  const conversation = isConversational ? generateConversationalDialogue(panel.dialogue, index) : null;
+  const conversation = isConversational ? generateConversationalDialogue(panel, index) : null;
 
   return (
     <div 

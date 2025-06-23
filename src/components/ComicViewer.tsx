@@ -26,35 +26,45 @@ const ComicViewer: React.FC = () => {
       scene: "AI analysis of business data with charts and graphs",
       character: "ComicBrief AI",
       dialogue: "Based on your Q3 report, I can see that revenue increased by 15% compared to last quarter. This growth is primarily driven by strong performance in your core product lines and improved customer retention rates.",
-      imageUrl: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400"
+      imageUrl: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400",
+      userQuestion: "Can you analyze this Q3 business report for me?",
+      aiResponse: "Based on your Q3 report, I can see that revenue increased by 15% compared to last quarter. This growth is primarily driven by strong performance in your core product lines and improved customer retention rates."
     },
     {
       id: 2,
       scene: "Team celebration and success metrics visualization",
       character: "ComicBrief AI",
       dialogue: "The key success factor here is your new product launch strategy. It's contributing significantly to customer acquisition, with a 23% increase in new user signups and improved market penetration in target demographics.",
-      imageUrl: "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=400"
+      imageUrl: "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=400",
+      userQuestion: "What's driving this growth?",
+      aiResponse: "The key success factor here is your new product launch strategy. It's contributing significantly to customer acquisition, with a 23% increase in new user signups and improved market penetration in target demographics."
     },
     {
       id: 3,
       scene: "Financial analysis showing cost concerns and budget review",
       character: "ComicBrief AI",
       dialogue: "However, there's an important challenge to address: operational costs have risen by 8% this quarter. This is mainly due to increased marketing spend and supply chain adjustments, which need strategic optimization.",
-      imageUrl: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400"
+      imageUrl: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400",
+      userQuestion: "Are there any concerns I should know about?",
+      aiResponse: "However, there's an important challenge to address: operational costs have risen by 8% this quarter. This is mainly due to increased marketing spend and supply chain adjustments, which need strategic optimization."
     },
     {
       id: 4,
       scene: "Strategic planning session with action items and solutions",
       character: "ComicBrief AI",
       dialogue: "The recommended action plan includes three key initiatives: optimizing your supply chain partnerships, renegotiating vendor contracts for better terms, and implementing cost-effective digital marketing strategies to maintain growth momentum.",
-      imageUrl: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400"
+      imageUrl: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400",
+      userQuestion: "What should we do to address these issues?",
+      aiResponse: "The recommended action plan includes three key initiatives: optimizing your supply chain partnerships, renegotiating vendor contracts for better terms, and implementing cost-effective digital marketing strategies to maintain growth momentum."
     },
     {
       id: 5,
       scene: "Future outlook with positive projections and team alignment",
       character: "ComicBrief AI",
       dialogue: "With these strategic improvements in place, the projections look very promising. I estimate a potential 20% growth trajectory for Q4, positioning your company for strong year-end performance and sustainable expansion.",
-      imageUrl: "https://images.pexels.com/photos/3184317/pexels-photo-3184317.jpeg?auto=compress&cs=tinysrgb&w=400"
+      imageUrl: "https://images.pexels.com/photos/3184317/pexels-photo-3184317.jpeg?auto=compress&cs=tinysrgb&w=400",
+      userQuestion: "What's the outlook for next quarter?",
+      aiResponse: "With these strategic improvements in place, the projections look very promising. I estimate a potential 20% growth trajectory for Q4, positioning your company for strong year-end performance and sustainable expansion."
     }
   ];
 
